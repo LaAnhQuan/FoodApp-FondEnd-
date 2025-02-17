@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function App() {
@@ -14,7 +14,11 @@ export default function App() {
     { id: 4, title: "Chill" },
     { id: 5, title: "And" },
     { id: 6, title: "Free" },
-    { id: 7, title: "LQ" }
+    { id: 7, title: "LQ" },
+    { id: 8, title: "Tony Kroos" },
+    { id: 9, title: "Nine" },
+    { id: 10, title: "M10" },
+
 
   ])
 
@@ -40,13 +44,17 @@ export default function App() {
       <Button title='Add new '
         onPress={() => alert("Tap me")}
       />
-      <View style={{ marginTop: 20 }}>
+      <ScrollView style={{
+        marginTop: 20,
+        borderColor: "red",
+        borderWidth: 1
+      }}>
         {todoList.map(todo => {
           return (
-            <Text style={styles.todo}>{todo.title}</Text>
+            <Text key={todo.id} style={styles.todo}>{todo.title}</Text>
           )
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 }
