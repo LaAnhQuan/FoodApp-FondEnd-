@@ -1,35 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function App() {
 
-
-  //data-type 
-  //string
-  const [name, setName] = useState<string>(" la anh quan");
-
-  //number
-  const [age, setAge] = useState<number>(30)
-
-  //null , undefined, boolean : khong hien thi
-  const test = null;
-
-  //object, array
-  const [person, setPerson] = useState([{
-    name: "hoi dan it",
-    age: 25
-  }])
-
-
+  const [name, setName] = useState<string>("hello");
 
   return (
     <View style={styles.container}>
       <View >
         <Text style={styles.liu}>{name}</Text>
-        <Text style={styles.liu}>{JSON.stringify(person)}</Text>
+        <TextInput
+          onChangeText={a => setName(a)}
+          value={name}
+          autoCapitalize='none'
+          autoCorrect={false}
+          // keyboardType='numeric'
+          //maxLength={2}
+          multiline
+          style={{
+            borderColor: "violet",
+            borderWidth: 1,
+            padding: 10
+          }} />
       </View>
+
+      <Button title='Add new ' />
       <Text style={styles.liu}>Hello world la anh
         <Text style={styles.hoidanit}> quan</Text>
       </Text>
