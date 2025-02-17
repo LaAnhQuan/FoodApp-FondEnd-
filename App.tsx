@@ -7,6 +7,17 @@ export default function App() {
 
   const [name, setName] = useState<string>("hello");
 
+  const [todoList, setTodoList] = useState([
+    { id: 1, title: "Learn React Native" },
+    { id: 2, title: "Learn React.js" },
+    { id: 3, title: "Watching Neflix" },
+    { id: 4, title: "Chill" },
+    { id: 5, title: "And" },
+    { id: 6, title: "Free" },
+    { id: 7, title: "LQ" }
+
+  ])
+
   return (
     <View style={styles.container}>
       <View >
@@ -26,15 +37,28 @@ export default function App() {
           }} />
       </View>
 
-      <Button title='Add new ' />
-      <Text style={styles.liu}>Hello world la anh
-        <Text style={styles.hoidanit}> quan</Text>
-      </Text>
+      <Button title='Add new '
+        onPress={() => alert("Tap me")}
+      />
+      <View style={{ marginTop: 20 }}>
+        {todoList.map(todo => {
+          return (
+            <Text style={styles.todo}>{todo.title}</Text>
+          )
+        })}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  todo: {
+    fontSize: 30,
+    backgroundColor: "pink",
+    marginBottom: 10,
+    padding: 15
+
+  },
   hoidanit: {
     fontSize: 30,
     color: "green",
@@ -50,6 +74,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     paddingTop: 20,
     paddingHorizontal: 20,
+    marginTop: 50
 
   },
 });
