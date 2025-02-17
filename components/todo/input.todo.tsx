@@ -17,6 +17,7 @@ interface IProps {
 const InputTodo = (props: IProps) => {
 
     const { addTodo } = props
+
     const [name, setName] = useState<string>("");
 
     const handleAddNewTodo = () => {
