@@ -8,28 +8,37 @@ const styles = StyleSheet.create({
         marginTop: 40,
         borderWidth: 1,
         borderColor: "red",
-        // flexDirection: "row",
-        // justifyContent: "flex-end"
+        flexDirection: "column", //ox
+        justifyContent: "center",
+        //alignItems: "center" //oy
     },
     item1: {
         padding: 20,
         borderWidth: 1,
-        backgroundColor: "violet"
+        backgroundColor: "violet",
+        height: 60,
+        flex: 4,
+
     },
     item2: {
+        flex: 1,
         padding: 20,
         borderWidth: 1,
-        backgroundColor: "green"
+        backgroundColor: "green",
+        height: 300,
+        width: 300
     },
     item3: {
         padding: 20,
         borderWidth: 1,
-        backgroundColor: "orange"
+        backgroundColor: "orange",
+        height: 100,
+        width: 100
     },
     item4: {
         padding: 20,
         borderWidth: 1,
-        backgroundColor: "grey"
+        backgroundColor: "grey",
     },
 })
 const FlexBox = () => {

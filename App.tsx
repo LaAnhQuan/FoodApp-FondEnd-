@@ -1,58 +1,94 @@
-import { useState } from 'react';
-import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import InputTodo from './components/todo/input.todo';
-import ListTodo from './components/todo/list.todo';
-import FlexBox from './components/todo/flexbox';
+import { Button, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
+import { NavigationContainer, useRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
 
 export default function App() {
 
-  const [todoList, setTodoList] = useState<ITodo[]>([])
+  const Stack = createNativeStackNavigator();
 
-  function randomInteger(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+
+  function HomeScreen(props: any) {
+    const navigation = props.navigation;
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
+
+        <View style={{ marginVertical: 10 }}>
+          <Button
+            onPress={() => navigation.navigate("Details")}
+            title='Go back home'
+          />
+        </View>
+
+        <View style={{ marginVertical: 10 }}>
+          <Button
+            onPress={() => navigation.navigate("Details",
+              { userId: 1, name: "Eric" }
+            )}
+            title='Go user id = 1'
+          />
+        </View>
+
+        <View style={{ marginVertical: 10 }}>
+          <Button
+            onPress={() => navigation.navigate("Details",
+              { userId: 2, name: "Hoi dan It" }
+            )}
+            title='Go user id = 2'
+          />
+        </View>
+      </View>
+    );
   }
 
-  const addTodo = (text: string) => {
+  function DetailsScreen(props: any) {
+    // console.log(">>> check props: ", props);
 
-    const todo = { id: randomInteger(1, 10000000), title: text };
-    setTodoList([...todoList, todo]);
+    const route: any = useRoute();
+    console.log(">>> check route: ", route.params)
+    const navigation: any = useNavigation();
+
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Details Screen</Text>
+        <Text>user id = {route?.params?.userId}</Text>
+        <Button
+          onPress={() => navigation.goBack()}
+          title='Go to Detail'
+        />
+
+
+      </View>
+    );
   }
 
-  const deleteTodo = (id: number) => {
-    const newTodo = todoList.filter(todo => todo.id != id)
-    setTodoList(newTodo)
-  }
   return (
-    <FlexBox />
-    // <TouchableWithoutFeedback
-    //   onPress={() => Keyboard.dismiss()}
-    // >
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Stack.Screen name="Home"
+          component={HomeScreen}
+          options={{ headerTitle: "Trang chu" }}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={({ route }: { route: any }) => ({
+            title: `Xem chi tiet ${route?.params?.userId ?? ""}`,
 
-    //   <View style={styles.container}>
-
-    //     <InputTodo
-    //       addTodo={addTodo}
-    //     />
-
-    //     <ListTodo
-    //       todoList={todoList}
-    //       deleteTodo={deleteTodo}
-    //     />
-
-    //   </View>
-    // </TouchableWithoutFeedback>
+          })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    paddingTop: 20,
-    paddingHorizontal: 20,
-    marginTop: 50
-
-  },
-});
