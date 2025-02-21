@@ -3,106 +3,70 @@ import { NavigationContainer, useRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Home from './components/learn/home';
+import HomeDetail from './components/learn/home.detail';
+import Like from './components/learn/like';
+import LikeDetail from './components/learn/like.detail';
+import About from './components/learn/about';
+import ChangePassword from './components/learn/change.password';
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
   const Drawer = createDrawerNavigator();
+  const Tab = createBottomTabNavigator();
 
-
-  function HomeScreen(props: any) {
-    const navigation = props.navigation;
+  const TabApp = () => {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-
-        <View style={{ marginVertical: 10 }}>
-          <Button
-            onPress={() => navigation.navigate("Details")}
-            title='Go back home'
-          />
-        </View>
-
-        <View style={{ marginVertical: 10 }}>
-          <Button
-            onPress={() => navigation.navigate("Details",
-              { userId: 1, name: "Eric" }
-            )}
-            title='Go user id = 1'
-          />
-        </View>
-
-        <View style={{ marginVertical: 10 }}>
-          <Button
-            onPress={() => navigation.navigate("Details",
-              { userId: 2, name: "Hoi dan It" }
-            )}
-            title='Go user id = 2'
-          />
-        </View>
-      </View>
-    );
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Like" component={Like} />
+      </Tab.Navigator>
+    )
   }
 
-  function DetailsScreen(props: any) {
-    // console.log(">>> check props: ", props);
-
-    const route: any = useRoute();
-    console.log(">>> check route: ", route.params)
-    const navigation: any = useNavigation();
-
+  const StackApp = () => {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Text>user id = {route?.params?.userId}</Text>
-        <Button
-          onPress={() => navigation.goBack()}
-          title='Go to Detail'
-        />
-
-
-      </View>
-    );
-  }
-
-  return (
-    <NavigationContainer>
-      {/* <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f4511e',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
+      <Stack.Navigator>
         <Stack.Screen name="Home"
-          component={HomeScreen}
-          options={{ headerTitle: "Trang chu" }}
+          component={TabApp}
+          options={{ headerTitle: "Trang chu", headerShown: false }}
         />
         <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
+          name="HomeDetail"
+          component={HomeDetail}
           options={({ route }: { route: any }) => ({
             title: `Xem chi tiet ${route?.params?.userId ?? ""}`,
 
           })}
         />
-      </Stack.Navigator> */}
+        <Stack.Screen name="LikeDetail"
+          component={LikeDetail}
+        />
 
-      <Drawer.Navigator initialRouteName='hoidanit'>
-        <Drawer.Screen name="Article" component={DetailsScreen} />
+
+      </Stack.Navigator>
+    )
+
+  }
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator >
         <Drawer.Screen
-          options={{
-            headerTitle: "Trang chu",
-            drawerLabel: "Trang chu"
-          }}
-          name="hoidanit"
-          component={HomeScreen} />
+          name="StackApp" component={StackApp} />
+        <Drawer.Screen
+          name="About" component={About} />
+        <Drawer.Screen
+          name="changePassword"
+          component={ChangePassword}
+        />
 
       </Drawer.Navigator>
+
+
+
     </NavigationContainer>
   );
 }
