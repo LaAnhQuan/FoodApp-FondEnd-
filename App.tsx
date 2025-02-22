@@ -5,12 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Home from './components/learn/home';
-import HomeDetail from './components/learn/home.detail';
-import Like from './components/learn/like';
-import LikeDetail from './components/learn/like.detail';
-import About from './components/learn/about';
-import ChangePassword from './components/learn/change.password';
+import Home from './src/components/learn/home';
+import HomeDetail from './src/components/learn/home.detail';
+import Like from './src/app/like';
+import LikeDetail from './src/app/like/like.detail';
+import About from './src/components/learn/about';
+import ChangePassword from './src/components/learn/change.password';
 
 export default function App() {
 
