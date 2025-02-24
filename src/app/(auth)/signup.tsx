@@ -2,8 +2,9 @@ import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
 import { APP_COLOR } from "@/utils/constant"
+import axios from "axios"
 import { Link } from "expo-router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { StyleSheet, Text, TextInput, View } from "react-native"
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context"
 
@@ -17,9 +18,41 @@ const styles = StyleSheet.create({
 })
 
 const SignUpPage = () => {
-    const [name, setName] = useState<String>("eric");
+    const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL;
+
+    console.log("check url backend: ", URL_BACKEND);
+    const [name, setName] = useState<String>("");
     const [email, setEmail] = useState<String>("");
     const [password, setPassword] = useState<String>("");
+
+    useEffect(() => {
+        const fetchAPI = async () => {
+            try {
+                const res = await axios.get(URL_BACKEND!);
+                console.log(">>> check res: ", res);
+
+            } catch (error: any) {
+                console.log(">>> check error: ", error.message)
+                if (error.response) {
+                    console.error("Lỗi phản hồi từ server:");
+                    console.error("Mã trạng thái:", error.response.status);  // Mã trạng thái HTTP
+                    console.error("Dữ liệu lỗi:", error.response.data);      // Dữ liệu lỗi trả về
+                    console.error("Đầu đề phản hồi:", error.response.headers);  // Đầu đề của phản hồi
+                }
+                // Nếu không có phản hồi nhưng yêu cầu đã được gửi đi (ví dụ: timeout, không kết nối được)
+                else if (error.request) {
+                    console.error("Yêu cầu đã được gửi nhưng không nhận được phản hồi.");
+                    console.error("Yêu cầu:", error.request);
+                }
+                // Nếu có lỗi xảy ra trong cấu hình yêu cầu
+                else {
+                    console.error("Lỗi cấu hình yêu cầu:", error.message);
+                }
+            }
+
+        }
+        fetchAPI()
+    }, [])
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -69,7 +102,7 @@ const SignUpPage = () => {
 
 
                     }}
-                    pressStyle={{ alignSelf: "stretch" }} p
+                    pressStyle={{ alignSelf: "stretch" }}
                 />
                 <View style={{
                     marginVertical: 5,
