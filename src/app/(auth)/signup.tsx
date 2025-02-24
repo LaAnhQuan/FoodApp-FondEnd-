@@ -7,6 +7,7 @@ import axios from "axios"
 import { Link, router } from "expo-router"
 import { useEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
+import Toast from "react-native-root-toast"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 
@@ -28,10 +29,20 @@ const SignUpPage = () => {
     const handleSignUp = async () => {
         try {
             const res = await registerAPI(email, password, name);
+            console.log(">>> check ress ", res)
             if (res.data) {
                 router.navigate("/(auth)/verify")
+            } else {
+                const m = Array.isArray(res.message)
+                    ? res.message[0] : res.message
+                let toast = Toast.show(m, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1
+                });
+
             }
-            console.log(">>> check res: ", res.data);
 
         } catch (error) {
             console.log(">>> check error: ", error)
