@@ -5,8 +5,9 @@ import { APP_COLOR } from "@/utils/constant"
 import axios from "axios"
 import { Link } from "expo-router"
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, TextInput, View } from "react-native"
-import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context"
+import { StyleSheet, Text, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+
 
 const styles = StyleSheet.create({
     container: {
@@ -29,25 +30,10 @@ const SignUpPage = () => {
         const fetchAPI = async () => {
             try {
                 const res = await axios.get(URL_BACKEND!);
-                console.log(">>> check res: ", res);
+                console.log(">>> check res: ", res.data);
 
             } catch (error: any) {
                 console.log(">>> check error: ", error.message)
-                if (error.response) {
-                    console.error("Lỗi phản hồi từ server:");
-                    console.error("Mã trạng thái:", error.response.status);  // Mã trạng thái HTTP
-                    console.error("Dữ liệu lỗi:", error.response.data);      // Dữ liệu lỗi trả về
-                    console.error("Đầu đề phản hồi:", error.response.headers);  // Đầu đề của phản hồi
-                }
-                // Nếu không có phản hồi nhưng yêu cầu đã được gửi đi (ví dụ: timeout, không kết nối được)
-                else if (error.request) {
-                    console.error("Yêu cầu đã được gửi nhưng không nhận được phản hồi.");
-                    console.error("Yêu cầu:", error.request);
-                }
-                // Nếu có lỗi xảy ra trong cấu hình yêu cầu
-                else {
-                    console.error("Lỗi cấu hình yêu cầu:", error.message);
-                }
             }
 
         }
