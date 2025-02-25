@@ -31,11 +31,14 @@ const SignUpPage = () => {
             const res = await registerAPI(email, password, name);
             console.log(">>> check ress ", res)
             if (res.data) {
-                router.navigate("/(auth)/verify")
+                router.replace({
+                    pathname: "/(auth)/verify",
+                    params: { email: email }
+                })
             } else {
                 const m = Array.isArray(res.message)
                     ? res.message[0] : res.message
-                let toast = Toast.show(m, {
+                Toast.show(m, {
                     duration: Toast.durations.LONG,
                     textColor: "white",
                     backgroundColor: APP_COLOR.ORANGE,
