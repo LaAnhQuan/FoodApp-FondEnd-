@@ -8,7 +8,7 @@ import fbLogo from '@/assets/auth/facebook.png';
 import ggLogo from '@/assets/auth/google.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -49,115 +49,120 @@ const WebcomePage = () => {
 
     if (true) {
         return (
-            <Redirect href={"/(auth)/signup"} />
+            <Redirect href={"/(auth)/login"} />
         )
 
     }
-    return (
-        <ImageBackground
-            style={{ flex: 1 }}
-            source={bg}
+    // return (
+    //     <ImageBackground
+    //         style={{ flex: 1 }}
+    //         source={bg}
 
-        >
-            <LinearGradient
-                colors={['transparent', '#191B2F']}
-                locations={[0.5, 0.8]}
-                style={{ flex: 1 }}
-            >
-                <View style={styles.container}>
-                    <View style={styles.welcomeText}>
-                        <Text style={styles.heading}>
-                            Welcome to
-                        </Text>
-                        <Text style={styles.body}>
-                            @laanhquan - Food
-                        </Text>
-                        <Text style={styles.footer}>
-                            Nền tảng giao đồ ăn trực tuyến hàng đầu Việt Nam
-                        </Text>
-                    </View>
-                    <View style={styles.welcomeBtn}>
-                        <TextBetweenLine title="Đăng nhập với" />
+    //     >
+    //         <LinearGradient
+    //             colors={['transparent', '#191B2F']}
+    //             locations={[0.5, 0.8]}
+    //             style={{ flex: 1 }}
+    //         >
+    //             <View style={styles.container}>
+    //                 <View style={styles.welcomeText}>
+    //                     <Text style={styles.heading}>
+    //                         Welcome to
+    //                     </Text>
+    //                     <Text style={styles.body}>
+    //                         @laanhquan - Food
+    //                     </Text>
+    //                     <Text style={styles.footer}>
+    //                         Nền tảng giao đồ ăn trực tuyến hàng đầu Việt Nam
+    //                     </Text>
+    //                 </View>
+    //                 <View style={styles.welcomeBtn}>
+    //                     <TextBetweenLine title="Đăng nhập với" />
 
-                        <View style={{
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            gap: 30
-                        }}>
-                            <ShareButton
-                                title="facebook"
-                                onPress={() => { alert("me") }}
-                                textStyle={{ textTransform: "uppercase" }}
-                                btnStyle={{
-                                    backgroundColor: "#fff",
-                                    justifyContent: "center",
-                                    borderRadius: 30
-                                }}
-                                icons={
-                                    <Image source={fbLogo} />
-                                }
-                            />
+    //                     <View style={{
+    //                         flexDirection: "row",
+    //                         justifyContent: "center",
+    //                         gap: 30
+    //                     }}>
+    //                         <ShareButton
+    //                             title="facebook"
+    //                             onPress={() => { alert("me") }}
+    //                             textStyle={{ textTransform: "uppercase" }}
+    //                             btnStyle={{
+    //                                 backgroundColor: "#fff",
+    //                                 justifyContent: "center",
+    //                                 borderRadius: 30
+    //                             }}
+    //                             icons={
+    //                                 <Image source={fbLogo} />
+    //                             }
+    //                         />
 
-                            <ShareButton
-                                title="google"
-                                onPress={() => { alert("me") }}
-                                textStyle={{ textTransform: "uppercase" }}
-                                btnStyle={{
-                                    backgroundColor: "#fff",
-                                    justifyContent: "center",
-                                    borderRadius: 30,
-                                    paddingHorizontal: 20
-                                }}
-                                icons={
-                                    <Image source={ggLogo} />
-                                }
-                            />
-                        </View>
-                        <View>
-                            <ShareButton
-                                title="Đăng nhập với email"
-                                onPress={() => { alert("me") }}
-                                textStyle={{ color: "#fff", paddingVertical: 5 }}
-                                btnStyle={{
-                                    backgroundColor: "#2c2c2c",
-                                    justifyContent: "center",
-                                    borderRadius: 30,
-                                    marginHorizontal: 50,
-                                    paddingVertical: 10,
-                                    borderColor: "#505050",
-                                    borderWidth: 1
-                                }}
-                                pressStyle={{ alignSelf: "stretch" }}
-                            />
-                        </View>
-                        <View style={{
-                            flexDirection: "row",
-                            gap: 10,
-                            justifyContent: "center"
-                        }}>
-                            <Text style={{
-                                color: "white"
-                            }}>
-                                Chưa có tài khoản?
-                            </Text>
-                            <Link href={"/(auth)/signup"}>
-                                <Text style={{
-                                    color: "white",
-                                    textDecorationLine: 'underline'
-                                }}>
-                                    Đăng ký.
-                                </Text>
-                            </Link>
+    //                         <ShareButton
+    //                             title="google"
+    //                             onPress={() => { alert("me") }}
+    //                             textStyle={{ textTransform: "uppercase" }}
+    //                             btnStyle={{
+    //                                 backgroundColor: "#fff",
+    //                                 justifyContent: "center",
+    //                                 borderRadius: 30,
+    //                                 paddingHorizontal: 20
+    //                             }}
+    //                             icons={
+    //                                 <Image source={ggLogo} />
+    //                             }
+    //                         />
+    //                     </View>
 
-                        </View>
-                    </View>
+    //                     <View>
+    //                         <ShareButton
+    //                             title="Đăng nhập với email"
+    //                             onPress={() => { router.navigate("/(auth)/login") }}
+    //                             textStyle={{ color: "#fff", paddingVertical: 5 }}
+    //                             btnStyle={{
+    //                                 backgroundColor: "#2c2c2c",
+    //                                 justifyContent: "center",
+    //                                 borderRadius: 30,
+    //                                 marginHorizontal: 50,
+    //                                 paddingVertical: 10,
+    //                                 borderColor: "#505050",
+    //                                 borderWidth: 1
+    //                             }}
+    //                             pressStyle={{ alignSelf: "stretch" }}
+    //                         />
 
-                </View>
-            </LinearGradient>
 
-        </ImageBackground>
 
-    )
+    //                     </View>
+
+    //                     <View style={{
+    //                         flexDirection: "row",
+    //                         gap: 10,
+    //                         justifyContent: "center"
+    //                     }}>
+    //                         <Text style={{
+    //                             color: "white"
+    //                         }}>
+    //                             Chưa có tài khoản?
+    //                         </Text>
+    //                         <Link href={"/(auth)/signup"}>
+    //                             <Text style={{
+    //                                 color: "white",
+    //                                 textDecorationLine: 'underline'
+    //                             }}>
+    //                                 Đăng ký.
+    //                             </Text>
+    //                         </Link>
+
+    //                     </View>
+    //                 </View>
+
+    //             </View>
+    //         </LinearGradient>
+
+    //     </ImageBackground>
+
+    // )
 }
 
 export default WebcomePage;
