@@ -12,11 +12,16 @@ const styles = StyleSheet.create({
     }
 })
 
+interface IProps {
+    title: string
+}
 
-const SocialButton = () => {
+
+const SocialButton = (props: IProps) => {
+    const { title } = props;
     return (
         <View style={styles.welcomeBtn}>
-            <TextBetweenLine title="Đăng nhập với" />
+            <TextBetweenLine title={title} />
 
             <View style={{
                 flexDirection: "row",
