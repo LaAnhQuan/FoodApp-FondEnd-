@@ -25,7 +25,7 @@ const VerifyPage = () => {
     const otpRef = useRef<OTPTextView>(null);
     const [code, setCode] = useState<string>("");
 
-    const { email } = useLocalSearchParams();
+    const { email, isLogin } = useLocalSearchParams();
 
     console.log(">>> check email: ", email);
 
@@ -48,7 +48,10 @@ const VerifyPage = () => {
                 backgroundColor: APP_COLOR.ORANGE,
                 opacity: 1
             });
-            router.replace("/(auth)/login")
+            if (isLogin) {
+                router.replace("/(tabs)")
+            }
+            else router.replace("/(auth)/login")
         } else {
             Toast.show(res.message as string, {
                 duration: Toast.durations.LONG,

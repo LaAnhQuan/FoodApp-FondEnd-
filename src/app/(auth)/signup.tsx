@@ -29,7 +29,7 @@ const SignUpPage = () => {
     const handleSignUp = async () => {
         try {
             const res = await registerAPI(email, password, name);
-            console.log(">>> check ress ", res)
+            // console.log(">>> check ress ", res)
             if (res.data) {
                 router.replace({
                     pathname: "/(auth)/verify",

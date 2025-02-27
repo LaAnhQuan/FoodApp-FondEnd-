@@ -1,7 +1,7 @@
 import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
-import { registerAPI } from "@/utils/api"
+import { loginAPI, registerAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import { Link, router } from "expo-router"
 import { useState } from "react"
@@ -21,34 +21,51 @@ const styles = StyleSheet.create({
 const LoginPage = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleLogin = async () => {
+        try {
+            setLoading(true);
+            const res = await loginAPI(email, password);
+            setLoading(false);
+            console.log(">>> check res ", res)
+            if (res.data) {
+                // router.replace({
+                //     pathname: "/(auth)/verify",
+                //     params: { email: email }
+                // })
 
-        console.log(">>> check email = ", email, " and password = ", password)
-        // try {
 
-        //     const res = await registerAPI(email, password, name);
-        //     if (res.data) {
-        //         router.replace({
-        //             pathname: "/(auth)/verify",
-        //             params: { email: email }
-        //         })
+                Toast.show("Đăng nhập thành công", {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1
+                });
+                router.navigate("/(tabs)")
 
-        //     } else {
-        //         const m = Array.isArray(res.message)
-        //             ? res.message[0] : res.message;
+            } else {
+                if (res.statusCode === 400) {
+                    router.replace({
+                        pathname: "/(auth)/verify",
+                        params: { email: email, isLogin: 1 }
+                    })
+                }
 
-        //         Toast.show(m, {
-        //             duration: Toast.durations.LONG,
-        //             textColor: "white",
-        //             backgroundColor: APP_COLOR.ORANGE,
-        //             opacity: 1
-        //         });
+                const m = Array.isArray(res.message)
+                    ? res.message[0] : res.message;
 
-        //     }
-        // } catch (error) {
-        //     console.log(">>> check error: ", error)
-        // }
+                Toast.show(m, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1
+                });
+
+            }
+        } catch (error) {
+            console.log(">>> check error: ", error)
+        }
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -77,6 +94,7 @@ const LoginPage = () => {
 
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
+                    loading={loading}
                     title="Đăng Nhập"
                     onPress={handleLogin}
                     textStyle={{
