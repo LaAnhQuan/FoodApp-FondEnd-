@@ -49,7 +49,7 @@ const WebcomePage = () => {
 
     if (true) {
         return (
-            <Redirect href={"/(auth)/signup"} />
+            <Redirect href={"/(auth)/login"} />
         )
 
     }
