@@ -11,6 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect } from "react";
 import { getAccountAPI, printAsyncStorage } from "@/utils/api";
 import { useCurrentApp } from "@/context/app.contex";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const styles = StyleSheet.create({
     container: {

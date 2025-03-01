@@ -8,26 +8,39 @@ import { Button, FlatList, ScrollView, StyleSheet, Text, View } from "react-nati
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const data = [
-    { key: 1, name: "Top Quán Rating 5* tuần này", ref: "" },
-    { key: 2, name: "Quán Mới Lên Sàn", ref: "" },
-    { key: 3, name: "Ăn Thỏa Thích, Freeship 0Đ", ref: "" },
+    {
+        key: 1,
+        name: "Top Quán Rating 5* tuần này",
+        description: "Gợi ý quán được tín đồ ẩm thực đánh giá 5*",
+        ref: ""
+    },
+    {
+        key: 2,
+        name: "Quán Mới Lên Sàn",
+        description: "Khám phá ngay hàng loạt quán ăn mới cực ngon",
+        ref: ""
+    },
+    {
+        key: 3,
+        name: "Ăn Thỏa Thích, Freeship 0Đ",
+        description: "Bánh ngọt, chân gà, bánh tráng trộn... Freeship",
+        ref: ""
+    },
 ]
 
 
 const HomeTab = () => {
-    const { setTheme } = useCurrentApp();
     return (
-        <>
+        <SafeAreaView style={{ flex: 1 }}>
             <CustomFlatList
                 data={data}
                 style={styles.list}
-                renderItem={({ item }) => <CollectionHome name={item.name} />}
+                renderItem={({ item }) => <CollectionHome name={item.name} description={item.description} />}
                 HeaderComponent={<HeaderHome />}
                 StickyElementComponent={<SearchHome />}
                 TopListElementComponent={<TopListHome />}
             />
-        </>
-        // </SafeAreaView>
+        </SafeAreaView>
     );
 }
 
