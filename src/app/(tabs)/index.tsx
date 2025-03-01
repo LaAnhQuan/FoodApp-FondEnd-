@@ -18,7 +18,6 @@ const HomeTab = () => {
     const { setTheme } = useCurrentApp();
     return (
         <>
-            <Button title="Change context " onPress={() => setTheme("theme update")} />
             <CustomFlatList
                 data={data}
                 style={styles.list}
