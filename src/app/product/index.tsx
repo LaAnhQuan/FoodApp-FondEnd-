@@ -1,10 +1,11 @@
+import RMain from "@/components/example/restaurant/main"
 import { Text, View } from "react-native"
 
 const ProductPage = () => {
     return (
         <View>
             <Text>
-                Welcome to Product Page
+                <RMain />
             </Text>
         </View>
     )
