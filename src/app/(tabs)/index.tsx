@@ -3,7 +3,7 @@ import CollectionHome from "@/components/home/collection.home";
 import HeaderHome from "@/components/home/header.home";
 import SearchHome from "@/components/home/search.home";
 import TopListHome from "@/components/home/top.list.home";
-import { useCurrentTheme } from "@/context/app.contex";
+import { useCurrentApp } from "@/context/app.contex";
 import { Button, FlatList, ScrollView, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -15,7 +15,7 @@ const data = [
 
 
 const HomeTab = () => {
-    const { setTheme } = useCurrentTheme();
+    const { setTheme } = useCurrentApp();
     return (
         <>
             <Button title="Change context " onPress={() => setTheme("theme update")} />

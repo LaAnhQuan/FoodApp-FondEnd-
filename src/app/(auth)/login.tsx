@@ -1,6 +1,7 @@
 import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
+import { useCurrentApp } from "@/context/app.contex"
 import { loginAPI, registerAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import { LoginSchema } from "@/utils/validate.schema"
@@ -22,36 +23,18 @@ const styles = StyleSheet.create({
 
 const LoginPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
+    const { setAppState } = useCurrentApp();
 
     const handleLogin = async (email: string, password: string) => {
         try {
             setLoading(true);
             const res = await loginAPI(email, password);
             setLoading(false);
-            console.log(">>> check res ", res)
             if (res.data) {
-                // router.replace({
-                //     pathname: "/(auth)/verify",
-                //     params: { email: email }
-                // })
-
-
-                Toast.show("Đăng nhập thành công", {
-                    duration: Toast.durations.LONG,
-                    textColor: "white",
-                    backgroundColor: APP_COLOR.ORANGE,
-                    opacity: 1
-                });
+                setAppState(res.data);
                 router.navigate("/(tabs)")
 
             } else {
-                if (res.statusCode === 400) {
-                    router.replace({
-                        pathname: "/(auth)/verify",
-                        params: { email: email, isLogin: 1 }
-                    })
-                }
-
                 const m = Array.isArray(res.message)
                     ? res.message[0] : res.message;
 
@@ -61,6 +44,13 @@ const LoginPage = () => {
                     backgroundColor: APP_COLOR.ORANGE,
                     opacity: 1
                 });
+
+                if (res.statusCode === 400) {
+                    router.replace({
+                        pathname: "/(auth)/verify",
+                        params: { email: email, isLogin: 1 }
+                    })
+                }
 
             }
         } catch (error) {
