@@ -31,7 +31,11 @@ export const getAccountAPI = () => {
 
 export const getTopRestaurant = (ref: string) => {
     const url = `/api/v1/restaurants/${ref}`;
-    return axios.post<IBackendRes<ITopRestaurant[]>>(url);
+    return axios.post<IBackendRes<ITopRestaurant[]>>(url, {}, {
+        headers: {
+            delay: 3000
+        }
+    });
 }
 
 
@@ -56,7 +60,9 @@ export const getURLBaseBackEnd = () => {
 
 export const getRestaurantByIdAPI = (id: string) => {
     const url = `/api/v1/restaurants/${id}`;
-    return axios.get<IBackendRes<IRestaurant>>(url);
+    return axios.get<IBackendRes<IRestaurant>>(url, {
+        headers: { delay: 3000 }
+    });
 }
 
 export const processDataRestaurantMenu = (restaurant: IRestaurant | null) => {
@@ -69,5 +75,23 @@ export const processDataRestaurantMenu = (restaurant: IRestaurant | null) => {
             data: menu.menuItem
         }
     })
+}
+
+export const currencyFormatter = (value: any) => {
+    const options = {
+        significantDigits: 2,
+        thousandsSeparator: '.',
+        decimalSeparator: ',',
+        symbol: 'đ'
+    }
+
+    if (typeof value !== 'number') value = 0.0
+    value = value.toFixed(options.significantDigits)
+
+    const [currency, decimal] = value.split('.')
+    return `${currency.replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        options.thousandsSeparator
+    )} ${options.symbol}`
 }
 

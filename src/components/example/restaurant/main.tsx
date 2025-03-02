@@ -5,7 +5,7 @@ import demo from '@/assets/demo.jpg';
 import { APP_COLOR } from '@/utils/constant';
 import StickyHeader from './sticky.header';
 import { useRef, useState } from 'react';
-import { getURLBaseBackEnd, processDataRestaurantMenu } from '@/utils/api';
+import { currencyFormatter, getURLBaseBackEnd, processDataRestaurantMenu } from '@/utils/api';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
@@ -229,7 +229,9 @@ const RMain = (props: IProps) => {
                                 <View><Text>{menuItem.title}</Text></View>
                                 <View><Text>{menuItem.description}</Text></View>
                                 <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
-                                    <Text >{menuItem.basePrice}</Text>
+                                    <Text style={{ color: APP_COLOR.ORANGE }}>
+                                        {currencyFormatter(menuItem.basePrice)}
+                                    </Text>
                                     <AntDesign
                                         name="plussquare"
                                         size={24}
