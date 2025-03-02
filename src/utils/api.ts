@@ -58,3 +58,16 @@ export const getRestaurantByIdAPI = (id: string) => {
     const url = `/api/v1/restaurants/${id}`;
     return axios.get<IBackendRes<IRestaurant>>(url);
 }
+
+export const processDataRestaurantMenu = (restaurant: IRestaurant | null) => {
+    if (!restaurant) return [];
+    return restaurant?.menu?.map((menu, index) => {
+        return {
+            index,
+            key: menu._id,
+            title: menu.title,
+            data: menu.menuItem
+        }
+    })
+}
+
