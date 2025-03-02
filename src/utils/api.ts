@@ -1,5 +1,7 @@
 import axios from "@/utils/axios.customize";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
+import { reach } from "yup";
 
 
 export const registerAPI = (email: string, password: string, name: string) => {
@@ -32,6 +34,7 @@ export const getTopRestaurant = (ref: string) => {
     return axios.post<IBackendRes<ITopRestaurant[]>>(url);
 }
 
+
 export const printAsyncStorage = () => {
     AsyncStorage.getAllKeys((err, keys) => {
         AsyncStorage.multiGet(keys!, (error, stores) => {
@@ -43,3 +46,15 @@ export const printAsyncStorage = () => {
         });
     });
 };
+
+export const getURLBaseBackEnd = () => {
+    const backend = Platform.OS === 'android'
+        ? process.env.EXPO_PUBLIC_ANDROID_API_URL
+        : process.env.EXPO_PUBLIC_IOS_API_URL;
+    return backend;
+}
+
+export const getRestaurantByIdAPI = (id: string) => {
+    const url = `/api/v1/restaurants/${id}`;
+    return axios.get<IBackendRes<IRestaurant>>(url);
+}
