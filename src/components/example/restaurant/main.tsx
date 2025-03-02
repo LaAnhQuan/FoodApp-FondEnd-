@@ -1,14 +1,11 @@
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, Dimensions, SectionList, ViewToken, ScrollView } from 'react-native';
 import Animated, { useAnimatedScrollHandler, useAnimatedStyle, useSharedValue, interpolate, Extrapolation, interpolateColor } from 'react-native-reanimated';
 import Info from './info';
-import demo from '@/assets/demo.jpg';
 import { APP_COLOR } from '@/utils/constant';
 import StickyHeader from './sticky.header';
 import { useRef, useState } from 'react';
 import { currencyFormatter, getURLBaseBackEnd, processDataRestaurantMenu } from '@/utils/api';
-
-import StickyBottom from './sticky.bottom';
-import ItemQuantity from './order/order.quantity';
+import ItemQuantity from './order/item.quantity';
 import StickyFooter from './order/stickey.footer';
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
@@ -219,6 +216,7 @@ const RMain = (props: IProps) => {
 
                     return (<ItemQuantity
                         menuItem={menuItem}
+                        restaurant={restaurant}
                     />)
                 }
 
@@ -243,7 +241,7 @@ const RMain = (props: IProps) => {
                 onMomentumScrollEnd={() => (blockUpdateRef.current = false)}
             />
 
-            <StickyFooter />
+            <StickyFooter restaurant={restaurant} />
         </View>
     );
 };
