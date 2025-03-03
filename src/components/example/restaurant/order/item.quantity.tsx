@@ -3,6 +3,7 @@ import { APP_COLOR } from "@/utils/constant";
 import { Image, Pressable, Text, View } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useCurrentApp } from "@/context/app.contex";
+import { router } from "expo-router";
 
 interface IProps {
     menuItem: IMenuItem
@@ -13,6 +14,7 @@ const ItemQuantity = (props: IProps) => {
     const { cart, setCart } = useCurrentApp();
     const handlePressItem = (item: IMenuItem, action: "MINUS" | "PLUS") => {
 
+        router.navigate("/product/create.modal")
         if (restaurant?._id) {
             const total = action === "MINUS" ? -1 : 1
             if (!cart[restaurant._id]) {
@@ -43,22 +45,23 @@ const ItemQuantity = (props: IProps) => {
                 quantity: currentQuantity,
             }
 
-            if (currentQuantity) {
+            if (currentQuantity <= 0) {
                 delete cart[restaurant._id].items[item._id];
             }
-
+            setCart((prevState: any) => ({ ...prevState, cart }))//merge state
         }
-        setCart((prevState: any) => ({ ...prevState, cart }))//merge state
+
 
     }
 
     let showMinus = false;
     let quantity = 0;
+
     if (restaurant?._id) {
         const store = cart[restaurant?._id!];
         if (store?.items && store?.items[menuItem?._id]) {
             showMinus = true;
-            quantity = store?.items[menuItem?._id]?.quantity;
+            quantity = store?.items[menuItem?._id].quantity;
         }
     }
     return (
@@ -98,14 +101,16 @@ const ItemQuantity = (props: IProps) => {
                                         size={24}
                                         color={APP_COLOR.ORANGE} />
                                 </Pressable>
-                            </>}
+                                <Text style={{
+                                    minWidth: 25,
+                                    textAlign: "center"
+                                }}>
+                                    {quantity}
+                                </Text>
+                            </>
+                        }
 
-                        <Text style={{
-                            minWidth: 25,
-                            textAlign: "center"
-                        }}>
-                            {quantity}
-                        </Text>
+
                         <Pressable
                             style={({ pressed }) => ({
                                 opacity: pressed === true ? 0.5 : 1,
