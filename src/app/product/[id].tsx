@@ -6,13 +6,15 @@ import { useLocalSearchParams } from "expo-router"
 import { useEffect, useState } from "react"
 import { Dimensions, View } from "react-native"
 import ContentLoader, { Rect } from "react-content-loader/native"
+import { useCurrentApp } from "@/context/app.contex"
 
 const { height: sHeight, width: sWidth } = Dimensions.get('window');
 
 const ProductPage = () => {
     const { id } = useLocalSearchParams();
-    const [restaurant, setRestaurant] = useState<IRestaurant | null>(null)
     const [loading, setLoading] = useState(true);
+    const { setRestaurant } = useCurrentApp()
+
     useEffect(() => {
         const fetchRestaurant = async () => {
             setLoading(true)
@@ -28,9 +30,7 @@ const ProductPage = () => {
     return (
         <View style={{ flex: 1 }}>
             {loading === false ?
-                <RMain
-                    restaurant={restaurant}
-                />
+                <RMain />
                 :
                 <ContentLoader
                     speed={2}
