@@ -20,7 +20,9 @@ const ItemQuantity = (props: IProps) => {
 
         if (item.options.length && isModal === false) {
             router.navigate({
-                pathname: "/product/create.modal",
+                pathname: action === "PLUS" ?
+                    "/product/create.modal" :
+                    "/product/update.modal",
                 params: { menuItemId: menuItem._id }
             })
         } else {
@@ -35,7 +37,6 @@ const ItemQuantity = (props: IProps) => {
                         items: {}
                     }
                 }
-
                 //xử lý sản phẩm
                 cart[restaurant._id].sum = cart[restaurant._id].sum + total * item.basePrice;
                 cart[restaurant._id].quantity = cart[restaurant._id].quantity + total;
@@ -57,7 +58,7 @@ const ItemQuantity = (props: IProps) => {
                 if (currentQuantity <= 0) {
                     delete cart[restaurant._id].items[item._id];
                 }
-                setCart((prevState: any) => ({ ...prevState, cart }))//merge state
+                setCart((prevState: any) => ({ ...prevState, ...cart }))//merge state
 
             }
 
