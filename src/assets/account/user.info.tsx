@@ -1,6 +1,7 @@
 import ShareInput from "@/components/input/share.input";
 import { useCurrentApp } from "@/context/app.contex";
-import { Image, Platform, StyleSheet, Text, View } from "react-native"
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, View } from "react-native"
+import { ScrollView } from "react-native-gesture-handler";
 
 
 const styles = StyleSheet.create({
@@ -19,41 +20,49 @@ const UserInfo = () => {
     const baseImage = `${backend}/images/avatar`;
 
     return (
-        <View style={styles.container}>
-            <View style={{ alignItems: "center", gap: 5 }}>
-                <Image
-                    style={{ height: 150, width: 150 }}
-                    source={{ uri: `${baseImage}/${appState?.user?.avatar}` }}
-                />
-                <Text>{appState?.user.name}</Text>
-            </View>
-            <View style={{ marginTop: 20, gap: 20 }}>
-                <ShareInput
-                    title="Họ Tên"
-                    // onChangeText={handleChange('name')}
-                    // onBlur={handleBlur('name')}
-                    //error={errors.name}
-                    value={appState?.user.name}
-                />
-                <ShareInput
-                    title="Email"
-                    keyboardType="email-address"
-                    // onChangeText={handleChange('email')}
-                    // onBlur={handleBlur('email')}
-                    // error={errors.email}
-                    value={appState?.user.email}
-                />
-                <ShareInput
-                    title="Số điện thoại"
-                    // secureTextEntry={true}
-                    // onChangeText={handleChange('password')}
-                    // onBlur={handleBlur('password')}
-                    // error={errors.password}
-                    value={appState?.user.phone}
-                />
-            </View>
-        </View>
-
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={{ flex: 1 }}
+        >
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.container}>
+                    <View style={{ alignItems: "center", gap: 5 }}>
+                        <Image
+                            style={{ height: 150, width: 150 }}
+                            source={{ uri: `${baseImage}/${appState?.user?.avatar}` }}
+                        />
+                        <Text>{appState?.user.name}</Text>
+                    </View>
+                    <View style={{ marginTop: 20, gap: 20 }}>
+                        <ShareInput
+                            title="Họ Tên"
+                            // onChangeText={handleChange('name')}
+                            // onBlur={handleBlur('name')}
+                            //error={errors.name}
+                            value={appState?.user.name}
+                        />
+                        <ShareInput
+                            title="Email"
+                            keyboardType="email-address"
+                            // onChangeText={handleChange('email')}
+                            // onBlur={handleBlur('email')}
+                            // error={errors.email}
+                            value={appState?.user.email}
+                        />
+                        <ShareInput
+                            title="Số điện thoại"
+                            // secureTextEntry={true}
+                            // onChangeText={handleChange('password')}
+                            // onBlur={handleBlur('password')}
+                            // error={errors.password}
+                            value={appState?.user.phone}
+                        />
+                    </View>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     )
 }
 
