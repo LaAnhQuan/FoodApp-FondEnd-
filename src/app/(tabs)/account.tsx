@@ -5,6 +5,7 @@ import { View, Text, Image, Pressable, Platform } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
+import { router } from "expo-router";
 
 
 const AccountPage = () => {
@@ -35,15 +36,17 @@ const AccountPage = () => {
 
             </View>
 
-            <Pressable style={{
-                paddingVertical: 15,
-                paddingHorizontal: 10,
-                borderBottomColor: "#eee",
-                borderBottomWidth: 1,
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center"
-            }}>
+            <Pressable
+                onPress={() => router.navigate("/(user)/account/info")}
+                style={{
+                    paddingVertical: 15,
+                    paddingHorizontal: 10,
+                    borderBottomColor: "#eee",
+                    borderBottomWidth: 1,
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center"
+                }}>
                 <View style={{
                     flexDirection: "row",
                     gap: 10,

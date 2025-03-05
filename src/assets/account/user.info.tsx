@@ -1,6 +1,14 @@
 import ShareInput from "@/components/input/share.input";
 import { useCurrentApp } from "@/context/app.contex";
-import { Image, Platform, Text, View } from "react-native"
+import { Image, Platform, StyleSheet, Text, View } from "react-native"
+
+
+const styles = StyleSheet.create({
+    container: {
+        paddingHorizontal: 15,
+        paddingTop: 50
+    }
+})
 
 const UserInfo = () => {
     const { appState } = useCurrentApp();
@@ -11,7 +19,7 @@ const UserInfo = () => {
     const baseImage = `${backend}/images/avatar`;
 
     return (
-        <View>
+        <View style={styles.container}>
             <View style={{ alignItems: "center", gap: 5 }}>
                 <Image
                     style={{ height: 150, width: 150 }}
