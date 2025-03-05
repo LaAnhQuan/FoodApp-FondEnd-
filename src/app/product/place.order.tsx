@@ -1,9 +1,11 @@
 import HeaderHome from "@/components/home/header.home";
 import { useCurrentApp } from "@/context/app.contex";
-import { currencyFormatter, getURLBaseBackEnd } from "@/utils/api";
+import { currencyFormatter, getURLBaseBackEnd, placeOrderAPI } from "@/utils/api";
 import { APP_COLOR } from "@/utils/constant";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, Pressable, ScrollView, Text, View } from "react-native"
+import Toast from "react-native-root-toast";
 
 interface IOrderItem {
     image: string;
@@ -13,9 +15,11 @@ interface IOrderItem {
     quantity: number
 }
 
-const OrderPage = () => {
-    const { restaurant, cart } = useCurrentApp();
+const PlaceOrderPage = () => {
+    const { restaurant, cart, setCart } = useCurrentApp();
     const [orderItems, setOrderItems] = useState<IOrderItem[]>([]);
+
+
 
     useEffect(() => {
         if (cart && restaurant && restaurant._id) {
@@ -55,6 +59,47 @@ const OrderPage = () => {
         }
     }, [restaurant])
 
+    const handlePlaceOrder = async () => {
+        const data = {
+            restaurant: restaurant?._id,
+            totalPrice: cart[restaurant!?._id].sum,
+            totalQuantity: cart[restaurant!?._id].quantity,
+            detail: orderItems
+        }
+
+        const res = await placeOrderAPI(data);
+
+        if (res.data) {
+            //success
+
+            Toast.show("Đặt hàng thành công", {
+                duration: Toast.durations.LONG,
+                textColor: "white",
+                backgroundColor: APP_COLOR.ORANGE,
+                opacity: 1
+            });
+
+
+            //clear data cart
+            if (restaurant) {
+                delete cart[restaurant._id];
+                setCart((prevCart: any) => ({ ...prevCart, ...cart }))
+            }
+            router.navigate("/")
+
+        } else {
+            const m = Array.isArray(res.message)
+                ? res.message[0] : res.message
+            Toast.show(m, {
+                duration: Toast.durations.LONG,
+                textColor: "white",
+                backgroundColor: APP_COLOR.ORANGE,
+                opacity: 1
+            });
+        }
+
+
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={{
@@ -105,10 +150,14 @@ const OrderPage = () => {
                             justifyContent: "space-between"
                         }}>
                             <Text style={{ color: APP_COLOR.GREY }}>
-                                Tổng cộng ({cart?.[restaurant!._id].quantity} món)
+                                Tổng cộng ({restaurant
+                                    && cart?.[restaurant._id]
+                                    && cart?.[restaurant!._id].quantity} món)
                             </Text>
                             <Text>
-                                {currencyFormatter(cart?.[restaurant!._id].sum)}
+                                {currencyFormatter(restaurant
+                                    && cart?.[restaurant._id]
+                                    && cart?.[restaurant!._id].sum)}
                             </Text>
                         </View>
                     </View>
@@ -154,6 +203,7 @@ const OrderPage = () => {
                 </View>
                 <View>
                     <Pressable
+                        onPress={handlePlaceOrder}
                         style={({ pressed }) => ({
                             opacity: pressed === true ? 0.5 : 1,
                             padding: 10,
@@ -166,7 +216,8 @@ const OrderPage = () => {
                             textAlign: "center"
                         }}>
                             Đặt đơn - {``}
-                            {currencyFormatter(cart?.[restaurant!._id].sum)}
+                            {currencyFormatter(cart && restaurant && cart?.[restaurant._id] &&
+                                cart?.[restaurant!._id].sum)}
                         </Text>
                     </Pressable>
                 </View>
@@ -175,4 +226,4 @@ const OrderPage = () => {
     )
 }
 
-export default OrderPage;
+export default PlaceOrderPage;
