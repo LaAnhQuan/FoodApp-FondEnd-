@@ -1,7 +1,3 @@
-import { currencyFormatter, getURLBaseBackEnd } from "@/utils/api";
-import { APP_COLOR } from "@/utils/constant";
-import { Image, Pressable, Text, View } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { useCurrentApp } from "@/context/app.contex";
 import { router } from "expo-router";
 import ItemSingle from "./item.single";

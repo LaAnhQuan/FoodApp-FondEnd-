@@ -3,6 +3,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { APP_COLOR } from "@/utils/constant";
 import { currencyFormatter } from "@/utils/api";
 import { useCurrentApp } from "@/context/app.contex";
+import { router } from "expo-router";
 
 interface IProps {
     restaurant: IRestaurant | null;
@@ -39,10 +40,13 @@ const StickyFooter = (props: IProps) => {
                         borderTopWidth: 1,
                         borderTopColor: APP_COLOR.GREY,
                     }}>
-                        <View style={{ padding: 10 }}>
+                        <View style={{
+                            paddingVertical: 10,
+                            paddingHorizontal: 30
+                        }}>
                             <View style={{
                                 position: "absolute",
-                                left: 40,
+                                left: 60,
                                 top: 5,
                                 width: 16,
                                 height: 16,
@@ -76,13 +80,13 @@ const StickyFooter = (props: IProps) => {
                         </View>
                     </View>
                     <View style={{
-                        width: 100,
+                        paddingHorizontal: 30,
                         justifyContent: "center",
                         alignItems: "center",
                         backgroundColor: APP_COLOR.ORANGE
                     }}>
                         <Text style={{ color: "white" }}
-                            onPress={() => alert("giao hang")}
+                            onPress={() => router.navigate("/product/order")}
                         >
                             Giao hàng
                         </Text>
