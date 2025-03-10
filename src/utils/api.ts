@@ -113,3 +113,11 @@ export const updateUserAPI = (_id: string, name: string, phone: string) => {
         { headers: { delay: 3000 } }
     );
 }
+
+export const updateUserPasswordAPI = (
+    currentPassword: string,
+    newPassword: string,
+) => {
+    const url = `/api/v1/users/password`;
+    return axios.post<IBackendRes<IUserLogin>>(url, { currentPassword, newPassword });
+}
