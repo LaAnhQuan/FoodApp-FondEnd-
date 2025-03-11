@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const LoginSchema = Yup.object().shape({
 
     password: Yup.string()
-        .min(2, 'Password cần tối thiểu 6 ký tự')
+        .min(6, 'Password cần tối thiểu 6 ký tự')
         .max(50, 'Password tối đa 50 ký tự ')
         .required('Password không được để trống'),
     email: Yup.string()
@@ -16,7 +16,7 @@ export const LoginSchema = Yup.object().shape({
 export const SignUpSchema = Yup.object().shape({
 
     password: Yup.string()
-        .min(2, 'Password cần tối thiểu 6 ký tự')
+        .min(6, 'Password cần tối thiểu 6 ký tự')
         .max(50, 'Password tối đa 50 ký tự ')
         .required('Password không được để trống'),
     email: Yup.string()
@@ -36,7 +36,7 @@ export const UpdateUserSchema = Yup.object().shape({
 
 export const UpdateUserPasswordSchema = Yup.object().shape({
     currentPassword: Yup.string()
-        .min(2, 'currentPassword cần tối thiểu 6 ký tự')
+        .min(6, 'currentPassword cần tối thiểu 6 ký tự')
         .max(50, 'currentPassword tối đa 50 ký tự')
         .required('currentPassword không được để trống'),
     newPassword: Yup.string()
@@ -48,4 +48,25 @@ export const UpdateUserPasswordSchema = Yup.object().shape({
         .required('confirmNewPassword không được để trống')
         .oneOf([Yup.ref('newPassword')], 'Passwords must match')
 
+});
+
+export const ForgotPasswordSchema = Yup.object().shape({
+
+    email: Yup.string()
+        .email('Định dạng email không hợp lệ')
+        .required('Email không được để trống'),
+});
+
+export const RequestPasswordSchema = Yup.object().shape({
+
+    verifyCode: Yup.string()
+        .min(5, 'Mã code cần tối thiểu 5 ký tự')
+        .required('Mã code không được để trống'),
+    newPassword: Yup.string()
+        .min(6, 'Password cần tối thiểu 6 ký tự')
+        .max(50, 'Password tối đa 50 ký tự ')
+        .required('Password không được để trống'),
+    confirmNewPassword: Yup.string()
+        .required('confirmNewPassword không được để trống')
+        .oneOf([Yup.ref('newPassword')], 'Passwords must match')
 });

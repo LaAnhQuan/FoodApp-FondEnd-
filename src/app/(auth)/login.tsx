@@ -101,6 +101,14 @@ const LoginPage = () => {
                         />
 
                         <View style={{ marginVertical: 10 }}></View>
+                        <View style={{ marginVertical: 10 }}>
+                            <Text
+                                onPress={() => router.navigate("/(auth)/forgot.password")}
+                                style={{
+                                    textAlign: "center",
+                                    color: APP_COLOR.ORANGE
+                                }}>Quên mật khẩu ?</Text>
+                        </View>
                         <ShareButton
                             loading={loading}
                             title="Đăng Nhập"
@@ -133,7 +141,7 @@ const LoginPage = () => {
                                 Chưa có tài khoản?
                             </Text>
                             <Link href={"/(auth)/signup"}>
-                                <Text style={{ color: "black", textDecorationLine: 'underline' }}>
+                                <Text style={{ color: APP_COLOR.ORANGE, textDecorationLine: 'underline' }}>
                                     Đăng ký.
                                 </Text>
                             </Link>
