@@ -105,6 +105,10 @@ const RootLayout = () => {
                                 name="(auth)/forgot.password"
                                 options={{ headerShown: false }}
                             />
+                            <Stack.Screen
+                                name="(auth)/search"
+                                options={{ headerShown: false }}
+                            />
                         </Stack>
                     </ThemeProvider>
                     {/* </SafeAreaView> */}

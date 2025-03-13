@@ -1,10 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native"
-import { ZoomIn } from "react-native-reanimated"
-import EvilIcons from '@expo/vector-icons/EvilIcons';
-import ShareButton from "../button/share.button";
 import { APP_COLOR } from "@/utils/constant";
-import { router } from "expo-router";
-
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import EvilIcons from '@expo/vector-icons/EvilIcons';
 
 const styles = StyleSheet.create({
     container: {
@@ -17,9 +14,9 @@ const styles = StyleSheet.create({
         borderRadius: 3
     }
 })
-const SearchHome = () => {
+const SearchPage = () => {
     return (
-        <Pressable onPress={() => router.navigate("/(auth)/search")}>
+        <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
                 <EvilIcons
                     name="search"
@@ -30,8 +27,9 @@ const SearchHome = () => {
                     color: "#707070"
                 }}>Deal Hot Hôm Nay Từ 0đ...</Text>
             </View>
-        </Pressable>
+        </SafeAreaView>
     )
+
 }
 
-export default SearchHome;
+export default SearchPage;
