@@ -9,6 +9,7 @@ import { Image, Pressable, RefreshControl, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+
 const FavoritePage = () => {
     const [favoriteRestaurant, setFavoriteRestaurant] = useState<IRestaurant[]>([]);
     const [refreshing, setRefreshing] = React.useState(false);
@@ -27,6 +28,7 @@ const FavoritePage = () => {
         await fetchRestaurants();
         setRefreshing(false);
     };
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>

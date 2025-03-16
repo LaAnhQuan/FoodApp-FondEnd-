@@ -70,6 +70,10 @@ const RootLayout = () => {
                             <Stack.Screen name="(auth)/login"
                                 options={{ headerShown: false }}
                             />
+                            <Stack.Screen
+                                name="(auth)/search"
+                                options={{ headerShown: false }}
+                            />
                             <Stack.Screen name="(user)/product/create.modal"
                                 options={{
                                     headerShown: false,
@@ -105,10 +109,7 @@ const RootLayout = () => {
                                 name="(auth)/forgot.password"
                                 options={{ headerShown: false }}
                             />
-                            <Stack.Screen
-                                name="(auth)/search"
-                                options={{ headerShown: false }}
-                            />
+
                         </Stack>
                     </ThemeProvider>
                     {/* </SafeAreaView> */}
